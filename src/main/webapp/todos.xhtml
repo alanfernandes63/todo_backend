@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></link>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css"></link>
+</h:head>
+<body>
+<div class="container">
+	<div class="row" style="margin-top: 30px">
+		<div class="col-md-6 offset-md-3">
+			<h:form id="form">
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				 
+				<p:dataList id="list" value="#{todoBean.todos}" var="todo"  type="definition" emptyMessage="Nenhuma tarefa">
+        			<f:facet name="header">
+        				<div class="row">
+        					<div class="col-md-12">
+        						<h3>Tarefas para fazer</h3>
+        					</div>
+        				</div>
+        				<div class="row">
+        					<div class="col col-md-8">
+        						<h:inputText style="margin:0px" styleClass="form-control" value="#{todoBean.todoName}" />
+        					</div>
+        					<div class="col col-md-4">
+        						<h:commandButton styleClass="btn btn-primary btn-block" action="#{todoBean.addTodo()}" value="Adicionar"/>
+        					</div>
+        				</div>
+        			</f:facet>
+        			<div class="row" style="margin-top: 15px">
+        				<div class="col col-md-1 offset-md-1">
+        					<h:selectBooleanCheckbox value="#{todo.done}">
+        						<f:ajax render="list" listener="#{todoBean.doneTodo(todo)}"/>
+        					</h:selectBooleanCheckbox>
+        				</div>
+        				<div class="col col-md-8">
+        				#{todo.name}
+        				</div>
+        				<div class="col col-md-2">
+        					<h:commandLink action="#{todoBean.delete(todo)}">
+        						<i class="fas fa-trash"></i>
+        						<f:ajax render="list"></f:ajax>
+        					</h:commandLink>
+        				</div>
+        			</div>
+        			<f:facet name="footer">
+        				<div class="row">
+        					<div class="col col-md-4">
+        						<h:commandButton styleClass="#{todoBean.allSelected ? 'btn btn-success' : 'btn'}" action="#{todoBean.listTodos()}" value="Todos" />
+        					</div>
+        					<div class="col col-md-4">
+        						<h:commandButton styleClass="#{todoBean.activeSelected ? 'btn btn-success' : 'btn'}" action="#{todoBean.listActiveTodos()}" value="Ativos" />
+        					</div>
+        					<div class="col col-md-4">
+        						<h:commandButton styleClass="#{todoBean.doneSelected ? 'btn btn-success' : 'btn'}" action="#{todoBean.listDoneTodos}" value="Feitos" />
+        					</div>
+        				</div>
+        			</f:facet>
+    			</p:dataList>
+			</h:form>
+		</div>
+	</div>
+</div>
+</body>
+</html>
