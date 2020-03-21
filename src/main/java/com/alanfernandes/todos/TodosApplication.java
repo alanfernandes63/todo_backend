@@ -22,29 +22,21 @@ public class TodosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TodosApplication.class, args);
 	}
-	@SuppressWarnings({"rawtypes", "unchecked"})
+	
+    @SuppressWarnings({"rawtypes", "unchecked"})
 	@Bean
     public ServletRegistrationBean servletRegistrationBean() {
-
         FacesServlet servlet = new FacesServlet();
-
         return new ServletRegistrationBean(servlet, "*.jsf");
-
     }
-	@SuppressWarnings({"rawtypes", "unchecked"})
+    
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
     public FilterRegistrationBean rewriteFilter() {
-
         FilterRegistrationBean rwFilter = new FilterRegistrationBean(new RewriteFilter());
-
         rwFilter.setDispatcherTypes(EnumSet.of(DispatcherType.FORWARD, DispatcherType.REQUEST,
-
-                DispatcherType.ASYNC, DispatcherType.ERROR));
-
+        DispatcherType.ASYNC, DispatcherType.ERROR));
         rwFilter.addUrlPatterns("/*");
-
         return rwFilter;
-
     }
-
 }
