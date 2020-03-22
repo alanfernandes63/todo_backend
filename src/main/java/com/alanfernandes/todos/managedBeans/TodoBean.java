@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.alanfernandes.todos.exceptions.TodoNotFoundExceptio;
 import com.alanfernandes.todos.exceptions.ValidateTodoException;
 import com.alanfernandes.todos.message.Message;
 import com.alanfernandes.todos.message.MessageBean;
@@ -67,7 +68,12 @@ public class TodoBean {
 	}
 	
 	public void delete(Todo todo) {
-		todoService.delete(todo.getId());
+		try {
+			todoService.delete(todo.getId());
+		} catch (TodoNotFoundExceptio e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		todos.remove(todo);
 	}
 	

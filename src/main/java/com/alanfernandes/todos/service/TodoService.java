@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alanfernandes.todos.exceptions.TodoNotFoundExceptio;
 import com.alanfernandes.todos.exceptions.ValidateTodoException;
 import com.alanfernandes.todos.models.Todo;
 import com.alanfernandes.todos.repository.TodoRepository;
@@ -22,8 +23,8 @@ public class TodoService {
 		return todoRepository.findAll();
 	}
 	
-	public Todo delete(long id) {
-		Todo todo = todoRepository.findById(id);
+	public Todo delete(long id) throws TodoNotFoundExceptio {
+		Todo todo = getTodo(id);
 		todoRepository.delete(todo);
 		return todo;
 	}
@@ -45,6 +46,17 @@ public class TodoService {
 	
 	public List<Todo> listDoneTodos(){
 		return todoRepository.listDoneTodos();
+	}
+	
+	private Todo getTodo(long id) throws TodoNotFoundExceptio {
+		
+		Todo todo = todoRepository.findById(id);
+		
+		if(todo == null) {
+			throw new TodoNotFoundExceptio("todo not found");
+		}
+		
+		return todo;
 	}
 	
 	@SuppressWarnings("unused")

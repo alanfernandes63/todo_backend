@@ -24,7 +24,7 @@ public class TodosApplication {
     }
 	
     @SuppressWarnings({"rawtypes", "unchecked"})
-	@Bean
+    @Bean
     public ServletRegistrationBean servletRegistrationBean() {
         FacesServlet servlet = new FacesServlet();
         return new ServletRegistrationBean(servlet, "*.jsf");

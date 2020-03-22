@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alanfernandes.todos.exceptions.TodoNotFoundExceptio;
 import com.alanfernandes.todos.exceptions.ValidateTodoException;
 import com.alanfernandes.todos.message.Message;
 import com.alanfernandes.todos.message.MessageResponse;
 import com.alanfernandes.todos.models.Todo;
+import com.alanfernandes.todos.repository.TodoRepository;
 import com.alanfernandes.todos.service.TodoService;
 
 @RestController
@@ -29,14 +31,23 @@ public class TodoController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping(value = "todos")
-	public ResponseEntity<List<Todo>> listAllTodo(){
+	public ResponseEntity<List<Todo>> listTodo(){
 		return new ResponseEntity(todoService.findAll(), HttpStatus.OK);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@DeleteMapping(value = "todos")
 	public ResponseEntity deleteTodo(@RequestParam long id) {
-		return new ResponseEntity(todoService.delete(id), HttpStatus.OK);
+		try {
+			return new ResponseEntity(todoService.delete(id), HttpStatus.OK);
+		} catch (TodoNotFoundExceptio e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		MessageResponse message = new MessageResponse();
+		message.setInfo("Tarefa não encontrada");
+		return new ResponseEntity(message, HttpStatus.NOT_FOUND);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
