@@ -15,8 +15,8 @@ public class TodoService {
 	@Autowired
 	TodoRepository todoRepository;
 	
-	public Todo findById(long id) {
-		return todoRepository.findById(id);
+	public Todo findById(long id) throws TodoNotFoundExceptio {
+		return getTodo(id);
 	}
 	
 	public List<Todo> findAll(){

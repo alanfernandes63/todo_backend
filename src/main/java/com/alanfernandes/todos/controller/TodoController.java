@@ -29,6 +29,20 @@ public class TodoController {
 	@Autowired
 	private TodoService todoService;
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@GetMapping(value = "todos/search")
+	public ResponseEntity todoFindById(@RequestParam long id) {
+		try {
+			return new ResponseEntity(todoService.findById(id), HttpStatus.OK);
+		} catch (TodoNotFoundExceptio e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			MessageResponse message = new MessageResponse();
+			message.setInfo(Message.TODO_NOT_FOUND);
+			return new ResponseEntity(message, HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping(value = "todos")
 	public ResponseEntity<List<Todo>> listTodo(){

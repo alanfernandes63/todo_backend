@@ -17,7 +17,7 @@ public class TodoServiceTests {
 	@Autowired
 	private TodoService todoService;
 	
-	//case success save todo
+	//case success
 	@Test
 	public void saveTodo() {
 		
@@ -33,6 +33,7 @@ public class TodoServiceTests {
 		}
 	}
 	
+	//test error
 	@Test
 	public void saveTodoNull() {
 		Todo todo = null;
@@ -41,8 +42,9 @@ public class TodoServiceTests {
 		});
 	}
 	
+	//test error
 	@Test
-	public void saveTodoNotName() {
+	public void saveTodoUnName() {
 		Todo todo = new Todo();
 		todo.setDone(true);
 		@SuppressWarnings("unused")
@@ -51,7 +53,7 @@ public class TodoServiceTests {
 		});
 	}
 	
-	// test case succsses delete todo
+	// test case succsses
 	@Test
 	public void deleteTodo() {
 		
@@ -72,12 +74,13 @@ public class TodoServiceTests {
 			Assertions.assertThat(oldTodo).isEqualTo(null);
 			
 		} catch (ValidateTodoException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}catch (TodoNotFoundExceptio e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
+	//test error
 	@Test
 	public void deleteTodoNotFound() {
 		Exception exception = assertThrows(TodoNotFoundExceptio.class, () ->{
@@ -85,6 +88,7 @@ public class TodoServiceTests {
 		});
 	}
 	
+	//test success
 	@Test
 	public void updateDoneFalse() {
 		Todo todo = new Todo("to study", false);
@@ -101,6 +105,7 @@ public class TodoServiceTests {
 		}
 	}
 	
+	//test success
 	@Test
 	public void updateDoneTodoTrue() {
 		Todo todo = new Todo("to study", true);
@@ -111,7 +116,7 @@ public class TodoServiceTests {
 			Assertions.assertThat(todoUpdated.isDone()).isEqualTo(true);
 		} catch (ValidateTodoException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (TodoNotFoundExceptio e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
