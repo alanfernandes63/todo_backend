@@ -34,8 +34,9 @@ public class TodoService {
 		return todoRepository.save(todo);
 	}
 	
-	public Todo doneTodo(long id, boolean done) {
+	public Todo updateDone(long id, boolean done) throws TodoNotFoundExceptio {
 		Todo todo = todoRepository.findById(id);
+		getTodo(id);
 		todo.setDone(done);
 		return todoRepository.save(todo);
 	}
@@ -59,11 +60,11 @@ public class TodoService {
 		return todo;
 	}
 	
-	@SuppressWarnings("unused")
 	private void validateTodo(Todo todo) throws ValidateTodoException {
-		if(todo.getName() == null || todo.getName().trim() == "") {
+		if(todo == null) {
+			throw new ValidateTodoException("todo is null");
+		}else if (todo.getName() == null || todo.getName().trim() == "") {
 			throw new ValidateTodoException("todo name is empty");
 		}
 	}
-
 }

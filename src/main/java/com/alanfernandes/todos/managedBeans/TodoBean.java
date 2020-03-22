@@ -46,8 +46,13 @@ public class TodoBean {
 		
 	}
 	
-	public void doneTodo(Todo todo) {
-		todoService.doneTodo(todo.getId(), todo.isDone());
+	public void updateDone(Todo todo) {
+		try {
+			todoService.updateDone(todo.getId(), todo.isDone());
+		} catch (TodoNotFoundExceptio e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(!allSelected) {
 			todos.remove(todo);

@@ -41,20 +41,29 @@ public class TodoController {
 		try {
 			return new ResponseEntity(todoService.delete(id), HttpStatus.OK);
 		} catch (TodoNotFoundExceptio e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			
+			MessageResponse message = new MessageResponse();
+			message.setInfo(Message.TODO_NOT_FOUND);
+			
+			return new ResponseEntity(message, HttpStatus.NOT_FOUND);
 		}
-		
-		MessageResponse message = new MessageResponse();
-		message.setInfo("Tarefa não encontrada");
-		return new ResponseEntity(message, HttpStatus.NOT_FOUND);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PutMapping(value = "todos")
 	public ResponseEntity doneTodo(@RequestParam long id,
 	@RequestParam boolean done) {
-		return new ResponseEntity(todoService.doneTodo(id, done), HttpStatus.OK);
+		try {
+			return new ResponseEntity(todoService.updateDone(id, done), HttpStatus.OK);
+		} catch (TodoNotFoundExceptio e) {
+			//e.printStackTrace();
+			
+			MessageResponse message = new MessageResponse();
+			message.setInfo(Message.TODO_NOT_FOUND);
+			
+			return new ResponseEntity(message, HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -64,8 +73,10 @@ public class TodoController {
 			return new ResponseEntity(todoService.save(todo), HttpStatus.OK);
 		} catch (ValidateTodoException e) {
 			//e.printStackTrace();
+			
 			MessageResponse message = new MessageResponse();
 			message.setInfo(Message.NAME_IS_REQUIRED);
+			
 			return new ResponseEntity(message,HttpStatus.BAD_REQUEST);
 		}
 	}

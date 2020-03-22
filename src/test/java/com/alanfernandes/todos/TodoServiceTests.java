@@ -17,6 +17,7 @@ public class TodoServiceTests {
 	@Autowired
 	private TodoService todoService;
 	
+	//case success save todo
 	@Test
 	public void saveTodo() {
 		
@@ -28,9 +29,16 @@ public class TodoServiceTests {
 			Assertions.assertThat(todo.getName()).isEqualTo("to study");
 			Assertions.assertThat(todo.isDone()).isEqualTo(false);
 		} catch (ValidateTodoException e) {
-			// TODO Auto-generated catch block
 		//	e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void saveTodoNull() {
+		Todo todo = null;
+		Exception exception = assertThrows(ValidateTodoException.class, () ->{
+			todoService.save(todo);
+		});
 	}
 	
 	@Test
@@ -38,11 +46,12 @@ public class TodoServiceTests {
 		Todo todo = new Todo();
 		todo.setDone(true);
 		@SuppressWarnings("unused")
-				Exception exception = assertThrows(ValidateTodoException.class, () -> {
-					this.todoService.save(todo);
-				});
+		Exception exception = assertThrows(ValidateTodoException.class, () -> {
+			this.todoService.save(todo);
+		});
 	}
 	
+	// test case succsses delete todo
 	@Test
 	public void deleteTodo() {
 		
@@ -50,20 +59,19 @@ public class TodoServiceTests {
 		Todo newTodo;
 		
 		try {
-			//cria o todo no banco
+			//create todo in database
 			newTodo = todoService.save(todo);
 			
-			//deleta o todo do banco
+			//delete todo in database
 			todoService.delete(newTodo.getId());
 			
-			//busca o todo deletado do banco
+			//search todo in database
 			Todo oldTodo = todoService.findById(newTodo.getId());
 			
-			//espera que a busca retorne null
+			//expected the search to return null
 			Assertions.assertThat(oldTodo).isEqualTo(null);
 			
 		} catch (ValidateTodoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}catch (TodoNotFoundExceptio e) {
 			e.printStackTrace();
@@ -75,5 +83,38 @@ public class TodoServiceTests {
 		Exception exception = assertThrows(TodoNotFoundExceptio.class, () ->{
 			this.todoService.delete(0);
 		});
+	}
+	
+	@Test
+	public void updateDoneFalse() {
+		Todo todo = new Todo("to study", false);
+		try {
+			Todo newTodo = todoService.save(todo);
+			Todo todoUpdated = todoService.updateDone(newTodo.getId(), true);
+			
+			Assertions.assertThat(todoUpdated.isDone()).isEqualTo(true);
+		} catch (ValidateTodoException e) {
+			e.printStackTrace();
+		} catch (TodoNotFoundExceptio e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void updateDoneTodoTrue() {
+		Todo todo = new Todo("to study", true);
+		try {
+			Todo newTodo = todoService.save(todo);
+			Todo todoUpdated = todoService.updateDone(newTodo.getId(), true);
+			
+			Assertions.assertThat(todoUpdated.isDone()).isEqualTo(true);
+		} catch (ValidateTodoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TodoNotFoundExceptio e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

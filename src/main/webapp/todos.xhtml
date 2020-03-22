@@ -35,7 +35,7 @@
         			<div class="row" style="margin-top: 15px">
         				<div class="col col-md-1 offset-md-1">
         					<h:selectBooleanCheckbox value="#{todo.done}">
-        						<f:ajax render="list" listener="#{todoBean.doneTodo(todo)}"/>
+        						<f:ajax render="list" listener="#{todoBean.updateDone(todo)}"/>
         					</h:selectBooleanCheckbox>
         				</div>
         				<div class="col col-md-8">
