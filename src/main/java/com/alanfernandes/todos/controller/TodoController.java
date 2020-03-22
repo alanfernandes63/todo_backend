@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import com.alanfernandes.todos.models.Todo;
 import com.alanfernandes.todos.repository.TodoRepository;
 import com.alanfernandes.todos.service.TodoService;
 
+@CrossOrigin(origins = "*", maxAge = 3)
 @RestController
 @RequestMapping(value = "api/v1/")
 public class TodoController {
