@@ -7,13 +7,14 @@
 - Primefaces
 - PostgreSQL
 - JUnit 5
-Esta aplicação é uma integração de JavaServer Faces com Spring, javaserver faces foi utilizado para constuir uma inerface gráfica
-que acessa as informações do backend Spring, o Spring foi utilizado para construção de uma Api RESTful.
+
+Esta aplicação é uma integração de JavaServer Faces com Spring, javaserver faces foi utilizado para constuir uma inerface gráfica que acessa as informações do backend Spring, o Spring foi utilizado para construção de uma Api RESTful.
 
 Requerimentos necessários
 
 - Java 8+
 - Apache Toncat 8.5
+
 link da aplicação no heroku https://tarefas-teste.herokuapp.com/
 
 building backend using JavaServer Faces and spring
