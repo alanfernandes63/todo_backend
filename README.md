@@ -14,6 +14,6 @@ Requerimentos necessários
 
 - Java 8+
 - Apache Toncat 8.5
-link da aplicação no heroku [(https://tarefas-teste.herokuapp.com/)]
+link da aplicação no heroku https://tarefas-teste.herokuapp.com/
 
 building backend using JavaServer Faces and spring
