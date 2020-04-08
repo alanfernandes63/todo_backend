@@ -67,8 +67,8 @@ public class TodoController {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@DeleteMapping(value = "todos")
-	public ResponseEntity deleteTodo(@RequestParam long id) {
+	@DeleteMapping(value = "todos/{id}")
+	public ResponseEntity deleteTodo(@PathVariable long id) {
 		try {
 			return new ResponseEntity(todoService.delete(id), HttpStatus.OK);
 		} catch (TodoNotFoundExceptio e) {
