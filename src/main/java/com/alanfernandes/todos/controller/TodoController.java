@@ -35,8 +35,8 @@ public class TodoController {
 	private TodoService todoService;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value = "todos/search")
-	public ResponseEntity todoFindById(@RequestParam long id) {
+	@GetMapping(value = "todos/{id}")
+	public ResponseEntity todoFindById(@PathVariable long id) {
 		try {
 			return new ResponseEntity(todoService.findById(id), HttpStatus.OK);
 		} catch (TodoNotFoundExceptio e) {
