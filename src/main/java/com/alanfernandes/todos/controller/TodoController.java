@@ -50,20 +50,8 @@ public class TodoController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@GetMapping(value = "todos")
-	public ResponseEntity<List<Todo>> listTodos(){
-		return new ResponseEntity(todoService.findAll(), HttpStatus.OK);
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value="todos/actives")
-	public ResponseEntity<List<Todo>> activeTodos(){
-		return new ResponseEntity(todoService.listActiveTodos(), HttpStatus.OK);
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value="todos/done")
-	public ResponseEntity<List<Todo>> doneTodos(){
-		return new ResponseEntity(todoService.listDoneTodos(), HttpStatus.OK);
+	public ResponseEntity<List<Todo>> listTodos(@RequestParam(required = true) String type){
+		return new ResponseEntity(todoService.findAll(type), HttpStatus.OK);
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })

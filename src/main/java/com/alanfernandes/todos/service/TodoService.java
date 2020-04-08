@@ -19,7 +19,12 @@ public class TodoService {
 		return getTodo(id);
 	}
 	
-	public List<Todo> findAll(){
+	public List<Todo> findAll(String type){
+		if(type.equals("active")) {
+		return todoRepository.listActiveTodos();
+		}else if(type.equals("done")) {
+			return todoRepository.listDoneTodos();
+		}
 		return todoRepository.findAll();
 	}
 	
@@ -39,14 +44,6 @@ public class TodoService {
 		getTodo(id);
 		todo.setDone(done);
 		return todoRepository.save(todo);
-	}
-	
-	public List<Todo> listActiveTodos(){
-		return todoRepository.listActiveTodos();
-	}
-	
-	public List<Todo> listDoneTodos(){
-		return todoRepository.listDoneTodos();
 	}
 	
 	private Todo getTodo(long id) throws TodoNotFoundExceptio {

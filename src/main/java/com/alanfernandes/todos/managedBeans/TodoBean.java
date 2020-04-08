@@ -41,7 +41,7 @@ public class TodoBean {
 	@RequestAction
 	@IgnorePostback
 	public void init() {
-		this.todos = todoService.findAll();
+		this.todos = todoService.findAll("all");
 		listTodos();
 		
 	}
@@ -83,21 +83,21 @@ public class TodoBean {
 	}
 	
 	public void listActiveTodos() {
-		todos = todoService.listActiveTodos();
+		todos = todoService.findAll("active");
 		this.allSelected = false;
 		this.activeSelected = true;
 		this.doneSelected = false;
 	}
 	
 	public void listTodos() {
-		todos = todoService.findAll();
+		todos = todoService.findAll("all");
 		this.allSelected = true;
 		this.activeSelected = false;
 		this.doneSelected = false;
 	}
 	
 	public void listDoneTodos() {
-		todos = todoService.listDoneTodos();
+		todos = todoService.findAll("done");
 		this.allSelected = false;
 		this.activeSelected = false;
 		this.doneSelected = true;
